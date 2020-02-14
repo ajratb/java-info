@@ -1,0 +1,12 @@
+GRADLE UPGRADE
+HAVE NO ADMIN RIGHTS TO SET SYSTEM PATH TO NEW VERSION
+
+1. Download new version
+
+2. Start terminal from project location
+
+3. Launch command: newGradleVersionLocationOnDist/gradle.bat wrapper
+
+PROXY PROBLEM
+copy gradle.properties from home to project
+DON'T FORGET! add to .gitignore /**/gradle.properties  
