@@ -1,1 +1,1 @@
-# study_info
+# java-info
