@@ -1,0 +1,18 @@
+= HttpRequestException encountered - Authentication error
+(Authentication required : You must have push access to verify locks error.)
+https://github.com/git-lfs/git-lfs/issues/2291
+
+$ git push origin master
+fatal: HttpRequestException encountered.
+   Произошла ошибка при отправке запроса.
+ERROR: Authentication error: Authentication required: You must have push access to verify locks
+error: failed to push some refs to 'https://ajratb@github.com/ajratb/advance.git'
+
+$ rm .git/hooks/pre-push
+
+$ git push
+fatal: HttpRequestException encountered.
+   Произошла ошибка при отправке запроса.
+Everything up-to-date
+
+Как-то связано с lfs...

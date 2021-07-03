@@ -1,0 +1,9 @@
+== Git Global Configuration
+
+$ git config --global http.proxy http://localhost:3124
+
+$ git config --global credential.helper wincred
+
+== VS Code 
+use git global configuration
+
