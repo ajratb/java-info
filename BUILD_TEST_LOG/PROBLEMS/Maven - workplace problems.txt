@@ -1,5 +1,0 @@
-HAS NO ADMIN RIGHTS
-Cannot set path in system environment without admin permission
-
-NETBEANS UPDATE MAVEN VERSION
-set Netbeans path to downloaded(in JavaTools directory)
