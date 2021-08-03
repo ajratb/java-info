@@ -1,0 +1,15 @@
+
+java -jar ./DelovedServer-1.2.29-0715-P.jar -Xmx3056m
+pause
+
+nohup java -jar /home/oracle/dv-auth/dv-auth-server-0.0.1-SNAPSHOT.jar --server.port=8100 >/dev/null 2>&1 &
+
+
+java -jar dv-hr-server-0.0.1-SNAPSHOT.jar -Dfile.encoding=UTF-8
+
+
+
+??
+cd mavennetbeans\target
+??? java MavenNetbeans-1.0-SNAPSHOT.jar
+pause 
