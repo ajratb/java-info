@@ -1,0 +1,15 @@
+
+
+@PostMapping("/test/error500")
+@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+String send500(HttpEntity<String> httpEntity) {
+
+   return httpEntity.getBody();
+}
+
+
+@PostMapping("/test/error500response")
+ResponseEntity<String> send500response(HttpEntity<String> httpEntity) {
+
+    return new ResponseEntity<>(httpEntity.getBody(), HttpStatus.INTERNAL_SERVER_ERROR);
+}

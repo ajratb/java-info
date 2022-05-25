@@ -1,0 +1,6 @@
+@ExceptionHandler(value = {EventDataProcessingException.class})
+    public ResponseEntity<Object> badRequestContentHandler(Exception e) {
+        return new ResponseEntity<>(e.getMessage()
+                //, HttpStatus.BAD_REQUEST);
+                , HttpStatus.INTERNAL_SERVER_ERROR); // Для совместимости с предыдущей версией сервиса
+}
