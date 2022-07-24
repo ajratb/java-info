@@ -1,6 +1,26 @@
+
+
+Diman's Example (in Controller)
+
 @ExceptionHandler(value = {EventDataProcessingException.class})
     public ResponseEntity<Object> badRequestContentHandler(Exception e) {
         return new ResponseEntity<>(e.getMessage()
                 //, HttpStatus.BAD_REQUEST);
                 , HttpStatus.INTERNAL_SERVER_ERROR); // Для совместимости с предыдущей версией сервиса
+}
+
+
+From sboot docs:
+
+How to record in metrics
+
+@Controller
+public class MyController {
+
+    @ExceptionHandler(CustomException.class)
+    String handleCustomException(HttpServletRequest request, CustomException ex) {
+        request.setAttribute(ErrorAttributes.ERROR_ATTRIBUTE, ex);
+        return "errorView";
+    }
+
 }
