@@ -24,3 +24,14 @@ public class MyController {
     }
 
 }
+
+
+@ControllerAdvice
+public class EventDataProcessingAdvice {
+    @ResponseBody
+    @ExceptionHandler(EventDataProcessingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    String eventDataProcessingHandler(EventDataProcessingException ex) {
+        return ex.getMessage();
+    }
+}
