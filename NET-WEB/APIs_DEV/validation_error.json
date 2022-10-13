@@ -1,0 +1,42 @@
+{
+	"messages": [
+		"attribute paths.'/api/whatif/addDoc'(put).[jsonObj].type is missing",
+		"attribute paths.'profileId'. For path parameter 'profileId' the required value should be true",
+		"attribute paths.'profileId'. For path parameter 'profileId' the required value should be true",
+		"attribute paths.'stageId'. For path parameter 'stageId' the required value should be true",
+		"attribute paths.'profileId'. For path parameter 'profileId' the required value should be true",
+		"attribute paths.'stageId'. For path parameter 'stageId' the required value should be true",
+		"attribute paths.'version'. For path parameter 'version' the required value should be true",
+		"attribute paths.'locale'. For path parameter 'locale' the required value should be true",
+		"attribute paths.'locale'. For path parameter 'locale' the required value should be true",
+		"attribute paths.'viewName'. For path parameter 'viewName' the required value should be true",
+		"attribute paths.'labelIds'. For path parameter 'labelIds' the required value should be true",
+		"attribute paths.'locale'. For path parameter 'locale' the required value should be true",
+		"attribute paths.'module'. For path parameter 'module' the required value should be true",
+		"attribute paths.'module'. For path parameter 'module' the required value should be true",
+		"attribute paths.'id'. For path parameter 'id' the required value should be true",
+		"attribute paths.'id'. For path parameter 'id' the required value should be true",
+		"attribute paths.'refNo'. For path parameter 'refNo' the required value should be true",
+		"attribute paths.'refNo'. For path parameter 'refNo' the required value should be true",
+		"attribute paths.'refNo'. For path parameter 'refNo' the required value should be true",
+		"attribute paths.'version'. For path parameter 'version' the required value should be true",
+		"attribute paths.'version'. For path parameter 'version' the required value should be true",
+		"attribute paths.'name'. For path parameter 'name' the required value should be true",
+		"attribute paths.'/api/whatif/delDoc/{refNo}/{csRefNo}}'. Declared path parameter csRefNo} needs to be defined as a path parameter in path or operation level"
+	],
+	"schemaValidationMessages": [
+		{
+			"level": "error",
+			"domain": "validation",
+			"keyword": "oneOf",
+			"message": "instance failed to match exactly one schema (matched 0 out of 2)",
+			"schema": {
+				"loadingURI": "http://swagger.io/v2/schema.json#",
+				"pointer": "/definitions/parametersList/items"
+			},
+			"instance": {
+				"pointer": "/paths/~1api~1approvalProfiles~1{profileId}/patch/parameters/0"
+			}
+		}
+	]
+}

@@ -1,0 +1,19 @@
+Всем привет! Мне удобна такая структура скиллов. Может как идея будет полезна. В скобках указал разделы из описанной в этой статье матрицы, с некоторыми пояснениями и мыслями:
+
+1.CS, OOP and Functional Style Design Patterns (Computer Science, Software Design. По рефакторингу с использование лямбд можно дополнить)
+
+2.Java Programming(+ Kotlin) (Java, Kotlin, но reactive programming и корутины в раздел 7, ORM-JDBC в раздел 5)
+
+3.Development and maintenance (Тестирование, Third party libraries, Generic Skills. Помимо этого, логирование, работа с пайплайном CI-CD, мониторинг)
+
+4.Spring Framework (Spring)
+
+5.Data Technologies and Tools (Database, очереди, кэширование. ORM-JDBC возможно сюда же лучше перенести)
+
+6.Enterprise System Design (Нет такого раздела, но здесь могут быть темы Moduled Java, Moduled Architecture, DDD, Hexagonal, 12 factors, Distributed Transactions, Saga, Monolith to Modules VS Microservices)
+
+7.Async and Reactive Programming (Раздела нет, но что-то перенести из Java и Котлин..Reactor, Reactive Programming, Java NIO, Kotlin Courutines, Spring WebFlux, Akka, Pulling vs Pushing..)
+
+8.OS, Nets, Security (Сеть,протоколы, Безопасность. Может сюда же добавить линукс, докер. Excel может быть :-) Возможно навыки создания диаграмм (UML, C4..), документирования)
+
+Также скиллы можно градировать по категориям: "распространенная практика SmLab", "необходимость для общего развития".
