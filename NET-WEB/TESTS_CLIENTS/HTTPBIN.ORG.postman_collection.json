@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "496e1375-4efd-4a30-bd4d-2f17cffa36fb",
+		"name": "HTTPBIN.ORG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://httpbin.org/#/Status_codes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://httpbin.org/status/205",
+					"protocol": "https",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"status",
+						"205"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get with params with commas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/get?name='Lab-dip tasks sent to GS, lab-dip making starts'",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "'Lab-dip tasks sent to GS, lab-dip making starts'"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post form",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
