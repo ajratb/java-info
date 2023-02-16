@@ -1,0 +1,28 @@
+PROBLEM: you won't see in-memory database created tables in third-party tool  (dbeaver, IDEA)
+Only in h2-console
+
+1.
+-- use in-memory database for spring boot application
+jdbc:h2:mem:testdb
+
+2.
+-- script for dump from in-memory database
+SCRIPT SIMPLE TO 'dump.sql';
+
+3.
+fixed script 'cargodb.sql' is saved in projed
+
+4. launch spring boot application with file database:
+jdbc:h2:file:./test_db
+it will create database:
+jdbc:h2:file:C:/Users/Me/DEV/GITHUB/ddd-spring-monolith-example/test_db
+
+ATTENTION: 
+4.1. when some tool is using file-database, then it is blocked for other tools 
+(spring-boot vs dbeaver vs IDEA) !
+4.2. Spring boot database initiation (schema.sql and jpa-auto-generation) doesn't work for file-database!
+
+5. Stop application and use third-party tool for file-database initiation
+(dbeaver, or Intellij IDEA Database View)
+
+6. Now you can generate ER-diagram2

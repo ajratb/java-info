@@ -1,0 +1,8 @@
+ClassPool classPool = ClassPool.getDefault();CtClass ctClass = classPool.get("com.lcs.wc.document.LCSDocument");
+
+CtClass ctString = classPool.get("java.lang.String");CtMethod ctMethod = ctClass.getDeclaredMethod("getValue",new CtClass[]{ctString});ctMethod
+.setBody("{ return com.sportmaster.wc.utils.FlexTypeTools.getAttrValue(this, $1); }");
+
+(?)ctClass.toClass();
+
+LCSDocument imagePage = (LCSDocument) LCSQuery.findObjectById("OR:com.lcs.wc.document.LCSDocument:112***70");System.out.println(imagePage.getValue("ptcdocumentName"));
