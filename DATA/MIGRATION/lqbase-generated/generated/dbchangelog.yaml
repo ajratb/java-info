@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1690199902684-1
+    id: 1690210139151-1
     author: ayr (generated)
     changes:
     - createTable:
@@ -20,7 +20,7 @@ databaseChangeLog:
             type: VARCHAR(64)
         tableName: genre
 - changeSet:
-    id: 1690199902684-2
+    id: 1690210139151-2
     author: ayr (generated)
     changes:
     - addUniqueConstraint:
