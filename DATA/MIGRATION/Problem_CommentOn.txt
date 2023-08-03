@@ -1,0 +1,11 @@
+PROBLEM 'COMMENT ON ..'
+
+There is no way to add IF EXISTS for COMMENT ON TABLE/COLUMN
+Because of it the scenario where lq-script is failed when it tries to add comment is possible!
+
+For example: in lq-script we creates a table and after it we add comments on table and columns.
+When there is no column with such name in db (the name is different, or column was removed)
+
+ASSUMPTION
+
+ 
