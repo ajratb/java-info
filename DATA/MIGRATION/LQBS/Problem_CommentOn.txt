@@ -1,0 +1,22 @@
+PROBLEM 'COMMENT ON ..'
+
+There is no way to add IF EXISTS for COMMENT ON TABLE/COLUMN
+Because of it the scenario where lq-script is failed when it tries to add comment is possible!
+
+For example: in lq-script we creates a table and after it we add comments on table and columns.
+When there is no column with such name in db (the name is different, or column was removed)
+
+VALIDATED BEHAVIOR
+if table exists comment will be added anyway !
+
+SCRIPT FAILURE BEHAVIOR
+Итак таблица уже существует и создаваться не будет (сработает IF NOT EXISTS)
+Меняем название столбца и заодно у предыдущего столбца меняем комментарий (чтобы проверить транзакционность)
+Заодно проверяем отработают ли предыдущие и следующие changeSet-ы
+
+ИТОГ
+сервис падает при запуске с исключением, что переименнованный столбец не найден.
+При этом:
+- коментарии к предыдущим столбцам не меняются (новые значения откатываются транзакционно)
+- скрипты-changeset-ы которые до этого исполняется, которые потом - нет. Не доходит до них дело.
+(смотрим таблицу liquibase databasechangelog)
