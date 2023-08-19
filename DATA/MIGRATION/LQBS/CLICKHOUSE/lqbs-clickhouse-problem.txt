@@ -1,0 +1,42 @@
+Failed SQL: (81) ALTER TABLE null.DATABASECHANGELOGLOCK  DELETE WHERE 1]
+
+IOException: Code: 81. DB::Exception: Database `null` doesn't exist. (UNKNOWN_DATABASE) (version 23.7.4.5 (official build))
+
+[Failed SQL: (81) CREATE TABLE IF NOT EXISTS null.DATABASECHANGELOGLOCK  (ID Int64,LOCKED UInt8,LOCKGRANTED Nullable(DateTime64),LOCKEDBY Nullable(String)) ENGINE MergeTree() ORDER BY ID]
+
+[Failed SQL: (81) CREATE TABLE IF NOT EXISTS null.DATABASECHANGELOGLOCK  (ID Int64,LOCKED UInt8,LOCKGRANTED Nullable(DateTime64),LOCKEDBY Nullable(String)) ENGINE MergeTree() ORDER BY ID]
+
+
+-- tutorial.DATABASECHANGELOGLOCK definition
+
+CREATE TABLE tutorial.DATABASECHANGELOGLOCK
+(
+
+    `ID` Int64,
+
+    `LOCKED` UInt8,
+
+    `LOCKGRANTED` Nullable(DateTime64(3)),
+
+    `LOCKEDBY` Nullable(String)
+)
+ENGINE = MergeTree
+ORDER BY ID
+SETTINGS index_granularity = 8192;
+
+liquibase.exception.DatabaseException: LZ4 is not supported. Please disable compression(compress=0), modify the algorithm(e.g. compress_algorithm=gzip), or add the missing libraries to the classpath
+
+CREATE TABLE tutorial.DATABASECHANGELOGLOCK
+(
+	`ID` Int64,
+	`LOCKED` UInt8,
+	`LOCKGRANTED` Nullable(DateTime64),
+	`LOCKEDBY` Nullable(String)
+)
+ENGINE = MergeTree()
+ORDER BY ID
+
+
+liquibase.exception.DatabaseException: Code: 81, e.displayText() = DB::Exception: Database `null` doesn't exist (version 21.8.15.7)
+, server ClickHouseNode [uri=http://localhost:8123/default]@-630587445 [Failed SQL: (81) CREATE TABLE IF NOT EXISTS null.DATABASECHANGELOG  (ID String,AUTHOR String,FILENAME String,DATEEXECUTED DateTime64,ORDEREXECUTED UInt64,EXECTYPE String,MD5SUM Nullable(String),DESCRIPTION Nullable(String),COMMENTS Nullable(String),TAG Nullable(String),LIQUIBASE Nullable(String),CONTEXTS Nullable(String),LABELS Nullable(String),DEPLOYMENT_ID Nullable(String)) ENGINE MergeTree() ORDER BY ID]
+	at liquibase.command.CommandScope.execute(CommandScope.java:236)

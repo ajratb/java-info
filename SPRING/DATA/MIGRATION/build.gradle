@@ -1,0 +1,268 @@
+String getSystemOrProjectOrDefault(key, defaultValue) {
+    System.getenv().getOrDefault(key, project.hasProperty(key) ? project[key] : defaultValue)
+}
+
+plugins {
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${dependencyManagementVersion}"
+    id 'java'
+    id "org.sonarqube" version "${sonarVersion}"
+    id 'com.google.cloud.tools.jib' version '3.3.1'
+    id "jacoco"
+    id 'org.liquibase.gradle' version "${liquibasePlugin}"
+}
+println "Maven repository variable MAVEN_RESOLVE_REPO: ${getSystemOrProjectOrDefault('MAVEN_RESOLVE_REPO', 'None')}"
+
+group = '***************'
+def baseVersion = '1.0.0-SNAPSHOT'
+version = getSystemOrProjectOrDefault('JIB_TAG', "$baseVersion")
+sourceCompatibility = '17'
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    springOpenfeign = '4.0.2'
+    postgresqlVersion = '42.4.3'
+
+    openApiStarterVersion = '2.1.0'
+    commonLang3Version = '3.12.0'
+    lombokVersion = '1.18.22'
+
+    snakeYaml = '2.0'
+
+    jupiterVersion = '5.8.2'
+    clickhouseJdbc = '0.4.6'
+    clickhouseDialect = '1.1.0'
+    lz4 = '1.3.0'
+
+    prometheusMetric = '1.9.3'
+
+    sentryVersion = '6.17.0'
+    fileupload = '1.5'
+
+    jaegerThrift = '1.6.0'
+    jaegerSpring = '3.3.1'
+
+    thumbnailatorVersion = '0.4.19'
+    mockitoInlineVersion = '5.2.0'
+
+    lqbaseCore = '4.23.1'
+    lqbaseClickHouse = '0.7.2'
+    picocliVersion = '4.6.1'
+}
+
+dependencies {
+    // Spring Boot
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jdbc'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+
+    // Sentry
+    implementation group: 'io.sentry', name: 'sentry-spring-boot-starter', version: "${sentryVersion}"
+    implementation group: 'io.sentry', name: 'sentry-logback', version: "${sentryVersion}"
+
+    // Jaeger
+    implementation group: 'io.jaegertracing', name: 'jaeger-thrift', version: "${jaegerThrift}"
+    implementation group: 'io.opentracing.contrib', name: 'opentracing-spring-jaeger-cloud-starter', version: "${jaegerSpring}"
+
+    // Postgres
+    implementation group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}"
+
+    // ClickHouse
+    implementation group: 'com.clickhouse', name: 'clickhouse-jdbc', version: "${clickhouseJdbc}"
+    // продублировано Игоревичем, 04.08.2023го
+    //implementation group: 'io.github.pelenthium', name: 'clickhouse-dialect-spring-boot-starter', version: "${clickhouseDialect}"
+    implementation group: 'net.jpountz.lz4', name: 'lz4', version: "${lz4}"
+    implementation group: 'io.github.pelenthium', name: 'clickhouse-dialect-spring-boot-starter', version: "${pelenthiumVersion}"
+
+    // Liquibase
+    implementation group: 'org.liquibase', name: 'liquibase-core', version: "${lqbaseCore}"
+    implementation group: 'com.mediarithmics', name:'liquibase-clickhouse', version: "${lqbaseClickHouse}"
+
+    // JWT
+    implementation group: 'com.auth0', name: 'java-jwt', version: "${javaJwtVersion}"
+
+    // QueryDSL
+    implementation group: 'com.querydsl', name: 'querydsl-jpa', version: "${queryDslVersion}", classifier: 'jakarta'
+    annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: "${queryDslVersion}", classifier: 'jakarta'
+    annotationProcessor group: 'jakarta.persistence', name: 'jakarta.persistence-api', version: '3.1.0'
+
+    //OpenApi
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: "${openApiStarterVersion}"
+
+    implementation group: 'org.yaml', name: 'snakeyaml', version: "${snakeYaml}"
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: "${fileupload}"
+
+    //Prometheus
+    implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: "${prometheusMetric}"
+
+    // Mapstruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    // Lombok
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+
+    // Test
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: "${jupiterVersion}"
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "${jupiterVersion}"
+    testImplementation group: 'org.mockito', name: 'mockito-inline', version: "${mockitoInlineVersion}"
+
+    // Lombok
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+
+    // Liquibase gradle dependencies
+    liquibaseRuntime group: 'org.liquibase', name: 'liquibase-core', version: "${lqbaseCore}"
+    liquibaseRuntime group: 'org.postgresql', name: 'postgresql', version: "${postgresqlVersion}"
+    liquibaseRuntime group: 'com.clickhouse', name: 'clickhouse-jdbc', version: "${clickhouseJdbc}"
+    liquibaseRuntime group: 'net.jpountz.lz4', name: 'lz4', version: "${lz4}"
+    liquibaseRuntime group: 'info.picocli', name: 'picocli', version: "${picocliVersion}"
+    liquibaseRuntime group: 'com.mediarithmics', name:'liquibase-clickhouse', version: "${lqbaseClickHouse}"
+}
+
+springBoot {
+    mainClass = 'ru.atc.rkn.service.notification.NotificationServiceApplication'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco.xml")
+    }
+
+    dependsOn test
+}
+
+sonarqube {
+    properties {
+        property 'sonar.core.codeCoveragePlugin', 'jacoco'
+    }
+}
+
+repositories {
+    maven {
+        url getSystemOrProjectOrDefault('MAVEN_RESOLVE_REPO',
+                'https://nexus-dapdevops.phoenixit.ru/repository/erir/')
+        credentials {
+            username getSystemOrProjectOrDefault('MAVEN_RESOLVE_USER', '')
+            password getSystemOrProjectOrDefault('MAVEN_RESOLVE_PASSWORD', '')
+        }
+    }
+}
+
+jar {
+    enabled = false //оставляем только bootJar
+}
+bootJar {
+    baseName "${project.name}"
+    archiveName "${project.name}.jar"
+
+    manifest {
+        attributes('Built-By': System.properties['user.name'],
+                'Build-Timestamp': new Date(),
+                'Build-Revision': project['version'],
+                'Created-By': "Gradle ${gradle.gradleVersion}",
+                'Build-Jdk': "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+                'Build-OS': "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}")
+    }
+}
+
+bootRun.systemProperties = System.properties as Map<String, ?>
+
+jib {
+    from {
+        image = getSystemOrProjectOrDefault("JIB_FROM_IMAGE",
+                "gitlab.akb-it.ru:4567/rkn-group/ci-templates/openjre:17.0.7-temurin-22.04.2-ubuntu")
+        auth {
+            username = getSystemOrProjectOrDefault("PULL_REGISTRY_USER", "")
+            password = getSystemOrProjectOrDefault("PULL_REGISTRY_PASSWORD", "")
+        }
+    }
+    to {
+        image = getSystemOrProjectOrDefault("JIB_TO_IMAGE_BASE",
+                "gitlab.akb-it.ru:4567/rkn-group/notification-service") + ":$version"
+        auth {
+            username = getSystemOrProjectOrDefault("PUSH_REGISTRY_USER", "")
+            password = getSystemOrProjectOrDefault("PUSH_REGISTRY_PASSWORD", "")
+        }
+    }
+    container {
+        creationTime = "USE_CURRENT_TIMESTAMP"
+        jvmFlags = ["-XX:+ExitOnOutOfMemoryError"]
+    }
+}
+
+liquibase {
+    activities {
+        def postgres_host = getSystemOrProjectOrDefault("DB_HOST", "")
+        def postgres_port = getSystemOrProjectOrDefault("DB_PORT", "")
+        def postgres_db = getSystemOrProjectOrDefault("DB_NAME", "")
+        def postgres_user = getSystemOrProjectOrDefault("NOTIFICATION_DB_USER", "")
+        def postgres_password = getSystemOrProjectOrDefault("NOTIFICATION_DB_PASSWORD", "")
+        postgres {
+            driver "org.postgresql.Driver"
+            url "jdbc:postgresql://${postgres_host}:${postgres_port}/${postgres_db}"
+            // схема 'notification' должна быть создана предварительно, иначе - ошибка
+            liquibaseSchemaName "notification"
+            username postgres_user
+            password postgres_password
+            changelogFile "db/changelog/postgres/00-registry.yaml"
+            // Allows to strip "src/main/resources".
+            classpath "${projectDir}/src/main/resources"
+            logLevel "debug"
+        }
+        def clickhouse_host = getSystemOrProjectOrDefault("CLICKHOUSE_DB_HOST", "")
+        def clickhouse_port = getSystemOrProjectOrDefault("CLICKHOUSE_DB_PORT", "")
+//        def clickhouse_db = getSystemOrProjectOrDefault("CLICKHOUSE_DB_NAME", "")
+//        def clickhouse_user = getSystemOrProjectOrDefault("CLICKHOUSE_DB_USER", "")
+//        def clickhouse_password = getSystemOrProjectOrDefault("CLICKHOUSE_DB_PASSWORD", "")
+        clickhouse {
+            driver "com.clickhouse.jdbc.ClickHouseDriver"
+            url "jdbc:clickhouse://${clickhouse_host}:${clickhouse_port}"///${clickhouse_db}
+//            url "jdbc:clickhouse://localhost:8123"///${clickhouse_db}
+            // Указываем специальную базу данных для размещения таблиц liquibase.
+            // База данных lqbase должна быть создана предварительно, иначе - ошибка
+            defaultSchemaName "lqbase"
+            username "default"//clickhouse_user
+            //password ""//clickhouse_password
+
+            // Cвойства имён таблиц liquibase недоступны для активности.
+            // Их следует указывать при запуске таска плагина
+            // databaseChangelogTableName = "notification_dbchangelog"
+            // databaseChangeLogTableLockName = "notification_dbchangeloglock"
+
+            changelogFile "src/main/resources/db/changelog/clickhouse/00-registry.yaml"
+            logLevel "debug"
+        }
+        // Для запуска активности 'postgres' используем флаг:
+        // -PrunList='postgres'
+        // Для запуска активности 'clickhouse' используем флаги:
+        // -PrunList='clickhouse'
+        // и jvm:
+        // -Dliquibase.databaseChangeLogTableName=notification_dbchangelog
+        // -Dliquibase.databaseChangeLogLockTableName=notification_dbchangeloglock
+
+    }
+    //позволяет запускать таск с установленным флагом
+    // (иначе обе активности отрабатываются)
+    // НО ГРАДЛ РУГАЕТСЯ И НЕ СОБИРАЕТ
+    //runList = project.ext.runList
+}

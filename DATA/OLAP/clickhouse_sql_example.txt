@@ -1,0 +1,91 @@
+
+DROP DATABASE dummy;
+
+-- allrp.dm_advertiser_report definition
+
+CREATE TABLE allrp.dm_advertiser_report
+(
+
+    `id` UUID,
+
+    `advertiser_id` String,
+
+    `advertiser_full_name` Nullable(String),
+
+    `advertiser_short_name` Nullable(String),
+
+    `advertiser_inn` String,
+
+    `advertiser_opf` String,
+
+    `fio_desc` Nullable(String),
+
+    `advertiser_ogrn` Nullable(String),
+
+    `contract_qnt` Int32,
+
+    `contract_dt` DateTime,
+
+    `contract_no` String,
+
+    `platform_qnt` Int32,
+
+    `creative_qnt` Int32,
+
+    `ors_bool` Bool,
+
+    `rr_bool` Bool,
+
+    `phone_no` String,
+
+    `epay_no` String,
+
+    `reg_no` String,
+
+    `alternative_inn` String,
+
+    `oksm_code` String,
+
+    `rs_url` String,
+
+    `ord_id` UUID,
+
+    `ord_name` String,
+
+    `ord_short_name` String,
+
+    `contract_bool` Bool,
+
+    `platform_bool` Bool,
+
+    `creative_bool` Bool,
+
+    `display_bool` Bool,
+
+    `finance_bool` Bool,
+
+    `organization_type` String,
+
+    `created_by_code` String,
+
+    `create_dttm` DateTime,
+
+    `pid` String,
+
+    `rid` String,
+
+    `address` Nullable(String),
+
+    `rd_bool` Bool,
+
+    `reporter_id` String,
+
+    `ord_created_dttm` DateTime,
+
+    `ord_updated_dttm` DateTime
+)
+ENGINE = ReplicatedMergeTree('/clickhouse/tables/all-replicated/dm_advertiser_report',
+ '{replica}')
+ORDER BY (ord_id,
+ advertiser_id)
+SETTINGS index_granularity = 8192;
