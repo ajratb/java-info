@@ -1,0 +1,4 @@
+-- liquibase formatted sql
+-- changeset abik:1-source_type
+-- preconditions onFail:CONTINUE
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM pg_type WHERE typname = 'source_type'
