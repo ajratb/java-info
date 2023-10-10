@@ -2,3 +2,15 @@
 -- changeset abik:1-source_type
 -- preconditions onFail:CONTINUE
 -- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM pg_type WHERE typname = 'source_type'
+
+TO CHECK HOW 'onError' WORKS:
+
+--changeset abik:1-types
+-- preconditions onFail:CONTINUE onError:CONTINUE
+-- precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM 'unexisting_table'
+
+
+PREFER OVER
+(FOR THE WHOLE SCRIPT)
+
+--changeset abik:3-type-rules_status failOnError:false
