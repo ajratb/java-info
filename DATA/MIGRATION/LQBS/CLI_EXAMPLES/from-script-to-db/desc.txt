@@ -1,0 +1,11 @@
+prepare database
+
+put postgres-<ver>.jar if not exists (see path in liquibase.properties)
+
+! set postgres password in liquibase.properties
+
+execute
+> liquibase update
+
+and see database
+

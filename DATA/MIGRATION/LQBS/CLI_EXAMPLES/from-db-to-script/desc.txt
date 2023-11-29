@@ -1,0 +1,11 @@
+comment 'generated' directory
+
+put postgres-<ver>.jar if not exists (see path in liquibase.properties)
+
+! set postgres password in liquibase.properties
+
+execute
+> liquibase generateChangeLog
+
+and see 'generated' dir
+

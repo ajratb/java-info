@@ -1,9 +1,0 @@
-put postgres-<ver>.jar if not exists
-
-set postgres password in liquibase.properties
-
-execute
-> liquibase generateChangeLog
-
-and see 'generated' dir
-
