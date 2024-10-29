@@ -1,0 +1,51 @@
+volumes:
+
+  jenvol:
+
+networks:
+  jen_net:
+    driver: bridge
+
+
+services:
+
+  selenium:
+    image: selenium/standalone-chrome
+
+    networks:
+      - jen_net
+
+    ports:
+      - target: 4444
+        published: 4444
+        protocol: tcp
+        mode: host
+      - target: 7900
+        published: 7900
+        protocol: tcp
+        mode: host
+
+  jenkins:
+    image: py_jenkins:latest
+
+    build:
+      context: ..
+      dockerfile: ../Dockerfile
+
+    networks:
+      - jen_net
+
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+    user: root
+
+    environment:
+      - SERVICE_URL=http://selenium:4444
+
+    extra_hosts:
+      gitlab.grfc.ru: 10.177.111.252
+
+
