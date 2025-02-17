@@ -1,4 +1,5 @@
-const content = fetch("https://smk-stat.grfc.ru/ureg/rt/cky.js")
+
+const content = fetch("http://localhost:3000")
   .then((response) => response.text())
   .then((content) => { return content; })
   .catch(error => {
