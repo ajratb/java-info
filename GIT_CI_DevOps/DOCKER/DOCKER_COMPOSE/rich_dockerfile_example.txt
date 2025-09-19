@@ -1,0 +1,14 @@
+FROM jenkins/jenkins:latest
+
+USER root
+
+RUN apt-get update && apt-get install python3-pip -y && apt-get install python3-venv -y
+RUN cd var && mkdir py_venv && cd py_venv && python3 -m venv . 
+SHELL ["/bin/bash", "-c"]
+RUN source var/py_venv/bin/activate && python3 -m pip install selenium selenium-wire blinker==1.7.0
+RUN apt-get install wget -y && apt-get install nano -y && apt-get install
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.35.0/geckodriver-v0.35.0-linux64.tar.gz -P /home
+RUN tar -C /usr/local/bin/ -xvf /home/geckodriver-v0.35.0-linux64.tar.gz
+
+RUN cd /home && wget https://ftp.mozilla.org/pub/firefox/releases/131.0/linux-x86_64/en-US/firefox-131.0.tar.bz2
+RUN tar -C /home -xvf /home/firefox-131.0.tar.bz2

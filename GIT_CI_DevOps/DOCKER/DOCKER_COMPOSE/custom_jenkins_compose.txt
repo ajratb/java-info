@@ -1,0 +1,34 @@
+volumes:
+  jen_vol:
+
+networks:
+  jen_net:
+    driver: bridge
+
+
+services:
+
+  jenkins-new:
+    image: py_jenkins:latest
+
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      
+    volumes:
+      - jen_vol:/var/jenkins_home
+
+    networks:
+      - jen_net
+
+    ports:
+      - target: 8080
+        published: 8080
+        protocol: tcp
+        mode: host
+        
+    user: root
+
+    extra_hosts:
+      gitlab.grfc.ru: 9.9.9.9
+

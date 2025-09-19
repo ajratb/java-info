@@ -46,6 +46,6 @@ services:
       - SERVICE_URL=http://selenium:4444
 
     extra_hosts:
-      gitlab.grfc.ru: 10.177.111.252
+      sdfafa.some.com: 10.9.9.9
 
 
